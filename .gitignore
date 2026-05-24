@@ -1,0 +1,31 @@
+# ==========================================
+# Archivos a ignorar en Git - FABLAB UC
+# ==========================================
+
+# Base de datos local (Contiene registros y credenciales)
+/data/*.sqlite
+/data/*.db
+
+# Carpeta de subidas de imágenes
+/uploads/*
+!/uploads/.htaccess
+
+# Configuraciones de editores de código (IDE)
+/.vscode/
+/.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Archivos temporales del sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Archivos de bitácora y logs de error de PHP/Apache
+*.log
+error_log
+php_errors.log

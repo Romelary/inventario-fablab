@@ -1,0 +1,120 @@
+/* css/style.css - Estilo Global Universidad Continental */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root { 
+    --uc-purple: #660099; /* Morado Institucional */
+    --uc-purple-hover: #8000bf; 
+    --uc-dark: #1A1A1A; 
+    --bg-main: #F4F6F8; /* Fondo gris muy clarito */
+    --bg-panel: #FFFFFF; /* Fondo blanco de las cajas */
+    --border-color: #E0E0E0; 
+    --danger: #E74C3C; 
+    --success: #2ECC71; 
+    --text-muted: #666666;
+}
+
+body { 
+    background: var(--bg-main); 
+    color: var(--uc-dark); 
+    font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    padding: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* =========================================
+   ESTILOS DEL MENÚ PRINCIPAL (index.php)
+   ========================================= */
+.menu-container {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 50px 80px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-top: 10vh; /* Centrado visual */
+    text-align: center;
+}
+
+.btn-menu {
+    background-color: transparent;
+    color: var(--uc-purple);
+    border: 2px solid var(--uc-purple);
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-menu:hover {
+    background-color: var(--uc-purple);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(102, 0, 153, 0.3);
+}
+
+/* =========================================
+   ESTILOS DE MÓDULOS (Inventario, Recepción)
+   ========================================= */
+.grid-container { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    gap: 20px; 
+    background: var(--bg-panel); 
+    padding: 30px; 
+    border-radius: 8px; 
+    width: 100%;
+    max-width: 1100px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    border: 1px solid var(--border-color);
+}
+
+.form-group { display: flex; align-items: center; margin-bottom: 15px; position: relative; }
+.form-group label { width: 140px; color: var(--uc-dark); font-weight: 600; font-size: 0.95em; }
+.form-group input, .form-group select, .form-group textarea { 
+    flex: 1; padding: 10px; background: #FFFFFF; border: 1px solid var(--border-color); 
+    color: var(--uc-dark); border-radius: 4px; transition: all 0.3s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--uc-purple); outline: none; box-shadow: 0 0 5px rgba(102, 0, 153, 0.2);
+}
+
+#resultados-busqueda { position: absolute; top: 100%; left: 140px; right: 0; background: #FFF; border: 1px solid var(--border-color); z-index: 1000; display: none; max-height: 150px; overflow-y: auto; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.resultado-item { padding: 10px; cursor: pointer; border-bottom: 1px solid var(--border-color); font-size: 0.9em; }
+.resultado-item:hover { background: #F0F0F0; color: var(--uc-purple); }
+
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 2000; }
+.modal-content { background: var(--bg-panel); padding: 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; }
+
+.tabla-contenedor { margin: 15px 0; max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9em; }
+th { background: var(--uc-purple); padding: 12px 8px; position: sticky; top: 0; color: white; font-weight: 500; }
+td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); }
+tr:hover { background: #F8F9FA; cursor: pointer; }
+
+.stock-box { display: flex; gap: 15px; background: #F8F9FA; padding: 15px; border-radius: 5px; border: 1px solid var(--border-color); margin-bottom: 15px; align-items: center;}
+
+.botones-accion { display: flex; gap: 10px; flex-wrap: wrap; }
+.botones-accion button, .btn-modal { 
+    flex: 1; padding: 10px; background: var(--uc-purple); color: white; 
+    border: none; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.2s;
+}
+.botones-accion button:hover, .btn-modal:hover { background: var(--uc-purple-hover); }
+
+.btn-eliminar { background: white !important; border: 1px solid var(--danger) !important; color: var(--danger) !important; }
+.btn-eliminar:hover { background: var(--danger) !important; color: white !important; }
+.btn-secundario { background: #E0E0E0 !important; color: var(--uc-dark) !important; }
+.btn-secundario:hover { background: #CCCCCC !important; }
+
+.image-preview { width: 100%; height: 250px; border: 2px dashed var(--border-color); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; background: #F8F9FA; border-radius: 4px; color: var(--text-muted);}
+.image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
