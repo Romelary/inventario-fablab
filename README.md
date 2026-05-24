@@ -37,11 +37,9 @@ Este proyecto es una plataforma web ligera y segura diseñada para la administra
 2.  **Inicialización:** Abre la URL del sistema en tu navegador (ej. `http://localhost/Inventario_comp-main/`). La base de datos y la estructura de tablas se inicializarán automáticamente en el primer acceso.
 3.  **Credenciales de Siembra por Defecto:**
     *   **Administrador Principal:**
-        *   **Usuario:** `admin`
-        *   **Contraseña:** `admin12345`
+        *   **Usuario:** `admin` (La contraseña por defecto se encuentra configurada en el archivo local `config/database.php`).
     *   **Administrador Auxiliar:**
-        *   **Usuario:** `admin2`
-        *   **Contraseña:** `admin54321`
+        *   **Usuario:** `admin2` (La contraseña por defecto se encuentra configurada en el archivo local `config/database.php`).
 
 > [!IMPORTANT]
 > **Cambio de Contraseña:** Se recomienda enfáticamente cambiar las contraseñas predeterminadas inmediatamente después de iniciar sesión por primera vez a través del menú **Personal** en el panel de administración.

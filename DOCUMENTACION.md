@@ -114,7 +114,7 @@ Para evitar bloqueos accidentales o sabotaje por parte de otros administradores 
 ---
 
 ## 5. Gestión y Optimización de Imágenes
-La subida y eliminación de imágenes de componentes se centraliza en [image_helper.php](file:///c:/xampp/htdocs/Nueva%20carpeta/Inventario_comp-main/config/image_helper.php):
+La subida y eliminación de imágenes de componentes se centraliza en [image_helper.php](file:///c:/xampp/htdocs/Nueva%20carpeta/Inventario_fablab/config/image_helper.php):
 *   **Validación Estricta:** Revisa las extensiones permitidas (`jpg, jpeg, png, gif, webp`) y valida el MIME type real mediante la librería `finfo` para evitar la subida de ejecutables maliciosos disfrazados de imágenes.
 *   **Optimización de Tamaño (GD Library):** Si la extensión `GD` está instalada en el servidor PHP:
     *   Redimensiona imágenes que superen los 1000px en su lado más largo para conservar espacio de disco.
@@ -127,10 +127,8 @@ La subida y eliminación de imágenes de componentes se centraliza en [image_hel
 ## 6. Credenciales de Siembra por Defecto
 Al inicializar la base de datos por primera vez (o si la tabla de usuarios se encuentra vacía), se siembran las siguientes cuentas de administración:
 1.  **Administrador Principal:**
-    *   *Usuario:* `admin`
-    *   *Contraseña:* `admin12345`
+    *   *Usuario:* `admin` (La contraseña predeterminada se encuentra configurada en el archivo local `config/database.php`).
 2.  **Administrador Auxiliar:**
-    *   *Usuario:* `admin2`
-    *   *Contraseña:* `admin54321`
+    *   *Usuario:* `admin2` (La contraseña predeterminada se encuentra configurada en el archivo local `config/database.php`).
 
 *Nota: Se recomienda cambiar las contraseñas al realizar el despliegue final en producción.*
