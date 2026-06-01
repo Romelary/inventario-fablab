@@ -2,6 +2,14 @@
 // api/guardar_categoria.php
 require_once '../config/auth.php';
 requiere_login_api();
+
+// Solo los administradores pueden gestionar categorías
+if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+    header('HTTP/1.1 403 Forbidden');
+    echo json_encode(['status' => 'error', 'mensaje' => 'Acceso denegado. Se requieren permisos de administrador.']);
+    exit;
+}
+
 require_once '../config/database.php';
 
 function sanitizar($texto) {

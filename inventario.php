@@ -5,8 +5,9 @@ requiere_login();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Inventario - UC</title>
    
 </head>
@@ -155,8 +156,12 @@ requiere_login();
     <div>
         <div class="image-preview" id="image-container"><span>Sin Imagen</span></div>
         <input type="file" id="imagen_upload" style="display:none;" accept="image/*">
+        <input type="file" id="imagen_camara" style="display:none;" accept="image/*" capture="environment">
         <?php if ($_SESSION['usuario_rol'] === 'admin'): ?>
-        <button type="button" onclick="document.getElementById('imagen_upload').click()" style="width: 100%; padding: 10px; cursor: pointer;">Subir Imagen</button>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <button type="button" onclick="document.getElementById('imagen_upload').click()" style="flex: 1; padding: 10px; cursor: pointer; font-size: 0.9em; font-weight: bold; background: var(--uc-purple); color: white; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 5px;">📁 Galería</button>
+            <button type="button" onclick="document.getElementById('imagen_camara').click()" style="flex: 1; padding: 10px; cursor: pointer; font-size: 0.9em; font-weight: bold; background: var(--uc-purple); color: white; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 5px;">📷 Cámara</button>
+        </div>
         <?php endif; ?>
         
         <div class="botones-accion" style="margin-top: 20px;">
@@ -240,6 +245,7 @@ requiere_login();
     });
 
     // Variables globales
+    let archivoImagenSeleccionado = null;
 
 
     /////
@@ -408,6 +414,11 @@ requiere_login();
         document.getElementById('limite_mantenimiento').value = item.limite_mantenimiento || 100;
         document.getElementById('grupo_limite_mantenimiento').style.display = (item.tipo_item === 'Maquina') ? 'block' : 'none';
 
+        // Limpiar inputs de imagen al cargar un elemento
+        document.getElementById('imagen_upload').value = '';
+        document.getElementById('imagen_camara').value = '';
+        archivoImagenSeleccionado = null;
+
         const imgContainer = document.getElementById('image-container');
         if (item.imagen_path) {
             imgContainer.innerHTML = `<img src="${item.imagen_path}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
@@ -416,14 +427,25 @@ requiere_login();
         }
     }
 
-    document.getElementById('imagen_upload').onchange = function(e) {
-        if(this.files[0]) {
+    function procesarImagenSeleccionada(inputOrigen, inputDestinoAlternativo) {
+        if(inputOrigen.files[0]) {
+            archivoImagenSeleccionado = inputOrigen.files[0];
+            inputDestinoAlternativo.value = ''; // Limpiar el otro input
+            
             const reader = new FileReader();
             reader.onload = (e) => {
                 document.getElementById('image-container').innerHTML = `<img src="${e.target.result}" style="max-width:100%; max-height:100%; object-fit:contain;">`;
             }
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(archivoImagenSeleccionado);
         }
+    }
+
+    document.getElementById('imagen_upload').onchange = function() {
+        procesarImagenSeleccionada(this, document.getElementById('imagen_camara'));
+    };
+
+    document.getElementById('imagen_camara').onchange = function() {
+        procesarImagenSeleccionada(this, document.getElementById('imagen_upload'));
     };
 
     let categoriasBD = [];
@@ -488,6 +510,10 @@ requiere_login();
 //fechas
         document.getElementById('fecha_vencimiento').value = '';
         document.getElementById('fecha_recepcion').value = '';
+        // Limpiar inputs de imagen y variable global
+        document.getElementById('imagen_upload').value = '';
+        document.getElementById('imagen_camara').value = '';
+        archivoImagenSeleccionado = null;
         // 👇 Limpiar y ocultar el tipo de ítem 👇
         document.getElementById('tipo_item').value = 'Herramienta';
         document.getElementById('limite_mantenimiento').value = 100;
@@ -557,8 +583,9 @@ requiere_login();
         const formData = new FormData();
         for (const key in datos) formData.append(key, datos[key]);
 
-        const inputImagen = document.getElementById('imagen_upload');
-        if (inputImagen.files[0]) formData.append('imagen_upload', inputImagen.files[0]);
+        if (archivoImagenSeleccionado) {
+            formData.append('imagen_upload', archivoImagenSeleccionado);
+        }
 
         fetch('api/procesar_inventario.php', { method: 'POST', body: formData })
         .then(res => res.json())

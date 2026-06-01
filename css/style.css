@@ -96,7 +96,7 @@ body {
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 2000; }
 .modal-content { background: var(--bg-panel); padding: 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; }
 
-.tabla-contenedor { margin: 15px 0; max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; }
+.tabla-contenedor { margin: 15px 0; max-height: 200px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 4px; }
 table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9em; }
 th { background: var(--uc-purple); padding: 12px 8px; position: sticky; top: 0; color: white; font-weight: 500; }
 td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); }
@@ -118,3 +118,71 @@ tr:hover { background: #F8F9FA; cursor: pointer; }
 
 .image-preview { width: 100%; height: 250px; border: 2px dashed var(--border-color); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 15px; background: #F8F9FA; border-radius: 4px; color: var(--text-muted);}
 .image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* =========================================
+   DISEÑO RESPONSIVO (MÓVIL Y TABLETAS)
+   ========================================= */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr !important;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .form-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .form-group label {
+        width: 100%;
+        margin-bottom: 2px;
+    }
+
+    #resultados-busqueda {
+        left: 0;
+    }
+
+    .stock-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .stock-box > div {
+        width: 100%;
+    }
+
+    .stock-box input {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .menu-container {
+        padding: 30px 20px;
+        margin-top: 5vh;
+    }
+
+    .botones-accion {
+        flex-direction: column;
+    }
+
+    .botones-accion button, .btn-modal {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h2, h3 {
+        font-size: 1.3em;
+    }
+
+    .grid-container {
+        padding: 10px;
+    }
+}
